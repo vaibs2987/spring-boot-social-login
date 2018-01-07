@@ -42,17 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		// auth.userDetailsService(userDetailsService);
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		// @formatter:off
-		http.csrf().disable().authorizeRequests().antMatchers("/index*","/login*", "/signin/**", "/signup/**", "/api/**")
-				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
-				.logout();
-	} // @formatter:on
+
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/index*", "/login*", "/signin/**", "/signup/**", "/api/**").permitAll().anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout();
+	}
 
 	@Bean
 	public ProviderSignInController providerSignInController() {

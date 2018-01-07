@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		user.setRegistrationDate(new Date());
 		user.setLastLoginTime(new Date());
 		user.setPassword(bCryptPasswordEncoder.encode(randomAlphabetic(8)));
-		//user = userRepository.save(user);
+		user = userRepository.save(user);
 		return user;
 	}
 
