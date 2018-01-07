@@ -1,5 +1,6 @@
 # spring-boot-social-login
 In this tutorial, we’ll focus on adding a new Facebook login to an existing form-login app.
+This application will run on port 9090 if you want change the port then change application-development.yml file.
 
 We’re going to be using the Spring Social support to interact with Facebook and keep things clean and simple.
 
