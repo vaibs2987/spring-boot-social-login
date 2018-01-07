@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.csrf().disable().authorizeRequests().antMatchers("/login*", "/signin/**", "/signup/**", "/api/**")
+		http.csrf().disable().authorizeRequests().antMatchers("/index*","/login*", "/signin/**", "/signup/**", "/api/**")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
 				.logout();
 	} // @formatter:on
@@ -57,7 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public ProviderSignInController providerSignInController() {
 		((InMemoryUsersConnectionRepository) usersConnectionRepository).setConnectionSignUp(facebookConnectionSignup);
-		return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository,
-				new FacebookSignInAdapter());
+		ProviderSignInController providerSigninController = new ProviderSignInController(connectionFactoryLocator,
+				usersConnectionRepository, new FacebookSignInAdapter());
+		providerSigninController.setPostSignInUrl("/index.html");
+		providerSigninController.setSignInUrl("/login");
+		providerSigninController.setSignUpUrl("/login");
+		return providerSigninController;
 	}
 }
